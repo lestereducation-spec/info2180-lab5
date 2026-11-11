@@ -21,16 +21,38 @@ header('Content-Type: text/html; charset=UTF-8');
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, (string) $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare('SELECT name, head_of_state FROM countries WHERE name LIKE :country ORDER BY name');
+    $stmt = $conn->prepare('SELECT name, continent, independence_year, head_of_state FROM countries WHERE name LIKE :country ORDER BY name');
     $stmt->execute(['country' => '%' . $country . '%']);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $error) {
     http_response_code(500);
     exit('<p>Could not load the world database.</p>');
 }
+function escape($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
 ?>
-<ul>
-<?php foreach ($results as $row): ?>
-    <li><?= htmlspecialchars($row['name'] . ' is ruled by ' . $row['head_of_state'], ENT_QUOTES, 'UTF-8') ?></li>
-<?php endforeach; ?>
-</ul>
+<?php if (!$results): ?>
+    <p>No matching countries found.</p>
+<?php else: ?>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Continent</th>
+                <th scope="col">Independence Year</th>
+                <th scope="col">Head of State</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($results as $row): ?>
+                <tr>
+                    <td><?= escape($row['name']) ?></td>
+                    <td><?= escape($row['continent']) ?></td>
+                    <td><?= escape($row['independence_year']) ?></td>
+                    <td><?= escape($row['head_of_state']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>
