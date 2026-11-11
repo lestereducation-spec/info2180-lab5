@@ -1,1 +1,90 @@
-/* Add your own styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f2f6fa;
+    color: #152c3b;
+    font-family: system-ui, sans-serif;
+}
+
+header {
+    padding: 28px 16px;
+    background: #163b50;
+    color: #fff;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    width: min(960px, calc(100% - 32px));
+    margin: 28px auto;
+}
+
+#controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+label {
+    font-weight: 600;
+}
+
+input, button {
+    padding: 10px 14px;
+    border: 1px solid #788f9d;
+    border-radius: 6px;
+    font: inherit;
+}
+
+input {
+    flex: 1 1 210px;
+    min-width: 0;
+}
+
+button {
+    border-color: #176056;
+    background: #176056;
+    color: #fff;
+    cursor: pointer;
+}
+
+#lookup-cities {
+    border-color: #235f8b;
+    background: #235f8b;
+}
+
+button:hover {
+    filter: brightness(.88);
+}
+
+#result {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #d5dfe6;
+    text-align: left;
+}
+
+th {
+    background: #e1ecf2;
+}
+
+tbody tr:nth-child(even) {
+    background: #f7fafc;
+}
